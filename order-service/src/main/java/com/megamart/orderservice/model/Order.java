@@ -10,17 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "orders")
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
 public class Order extends AbstractMappedEntity {
 	
 	@Id
@@ -39,5 +31,47 @@ public class Order extends AbstractMappedEntity {
 	
 	@Column( name = "cart_id")
 	private Integer cartId;
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public LocalDateTime getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(LocalDateTime orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public String getOrderDesc() {
+		return orderDesc;
+	}
+
+	public void setOrderDesc(String orderDesc) {
+		this.orderDesc = orderDesc;
+	}
+
+	public Double getOrderFee() {
+		return orderFee;
+	}
+
+	public void setOrderFee(Double orderFee) {
+		this.orderFee = orderFee;
+	}
+
+	public Integer getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
+	}
+	
+	
 
 }

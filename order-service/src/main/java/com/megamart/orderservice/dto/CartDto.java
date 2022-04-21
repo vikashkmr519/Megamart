@@ -2,20 +2,39 @@ package com.megamart.orderservice.dto;
 
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
+
 public class CartDto {
 
 	private Integer cartId;
 	private Integer userId;
-	private Integer orderId;
 	private Set<OrderDto> orderDtos;
 	private UserDto userDto;
+	public Integer getCartId() {
+		return cartId;
+	}
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Set<OrderDto> getOrderDtos() {
+		return orderDtos;
+	}
+	public void setOrderDtos(Set<OrderDto> orderDtos) {
+		this.orderDtos = orderDtos;
+	}
+	public UserDto getUserDto() {
+		return userDto;
+	}
+	public void setUserDto(UserDto userDto) {
+		this.userDto = userDto;
+	}
+	
+	
 }

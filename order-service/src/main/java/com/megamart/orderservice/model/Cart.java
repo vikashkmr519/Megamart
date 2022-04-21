@@ -7,17 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="carts")
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
 public class Cart extends AbstractMappedEntity {
 	
 	@Id
@@ -28,7 +20,22 @@ public class Cart extends AbstractMappedEntity {
 	@Column(name = "user_id")
 	private Integer userId;
 	
-	@Column(name = "order_id")
-	private Integer orderId;
 
+
+	public Integer getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	
 }

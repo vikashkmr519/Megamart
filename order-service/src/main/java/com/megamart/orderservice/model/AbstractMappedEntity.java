@@ -14,9 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @MappedSuperclass
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Data
 abstract class AbstractMappedEntity {
 	
 	@CreatedDate
