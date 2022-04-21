@@ -1,0 +1,8 @@
+server:
+  servlet:
+    context-path: /order-service
+
+spring:
+  profiles:
+    active:
+    - dev
