@@ -1,0 +1,10 @@
+server:
+  servlet:
+    context-path: /user-service
+    
+spring:
+  application:
+    name: USER-SERVICE
+  profiles:
+    active:
+    - dev

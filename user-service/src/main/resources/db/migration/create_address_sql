@@ -1,0 +1,9 @@
+create table address (
+	address_id int(11) primary key auto_increment,
+    user_id int(11),
+    full_address varchar(255),
+    postal_code varchar(255),
+    city  varchar(255),
+    created_at timestamp default localtimestamp not null,
+    updated_at timestamp
+);

@@ -1,0 +1,8 @@
+create table verification_tokens(
+verification_token_id int(11) primary key auto_increment,
+credential_id int(11),
+verif_token varchar(255),
+expire_date date,
+created_at timestamp default localtimestamp not null,
+updated_at timestamp
+);
