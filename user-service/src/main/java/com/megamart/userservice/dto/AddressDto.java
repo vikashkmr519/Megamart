@@ -2,6 +2,9 @@ package com.megamart.userservice.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 public class AddressDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,6 +19,7 @@ public class AddressDto implements Serializable {
 	
 	private String city;
 
+	@JsonInclude(value = Include.NON_NULL)
 	private UserDto userDto;
 
 	public Integer getAddressId() {

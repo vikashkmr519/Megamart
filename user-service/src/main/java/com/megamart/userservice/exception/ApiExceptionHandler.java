@@ -11,8 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.megamart.userservice.exception.payload.ExceptionMsg;
 import com.megamart.userservice.exception.wrapper.AddressNotFoundException;
@@ -21,7 +23,7 @@ import com.megamart.userservice.exception.wrapper.UserObjectNotFoundException;
 import com.megamart.userservice.exception.wrapper.VerificationTokenNotFoundException;
 
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ApiExceptionHandler{
 
 	private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
@@ -48,7 +50,8 @@ public class ApiExceptionHandler{
 			VerificationTokenNotFoundException.class,
 			AddressNotFoundException.class
 		})
-		public <T extends RuntimeException> ResponseEntity<ExceptionMsg> handleApiRequestException(final T e) {
+		@ResponseStatus()
+		public <T extends RuntimeException> ExceptionMsg handleApiRequestException(final T e) {
 			
 			log.info("**ApiExceptionHandler controller, handle API request*\n");
 			final var badRequest = HttpStatus.BAD_REQUEST;
@@ -56,7 +59,7 @@ public class ApiExceptionHandler{
 			msg.setHttpStatus(badRequest);
 			msg.setMsg("#### " + e.getMessage() + "! ####");
 			msg.setTimestamp(ZonedDateTime.now(ZoneId.systemDefault()));
-			return new ResponseEntity<>(msg,badRequest);
+			return msg;
 		}
 		
 	

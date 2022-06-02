@@ -13,7 +13,7 @@ import javax.validation.constraints.Email;
 
 
 @Entity
-@Table(name ="user")
+@Table(name ="users")
 public final class User extends AbstractMappedEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
