@@ -50,7 +50,7 @@ public class ApiExceptionHandler{
 			VerificationTokenNotFoundException.class,
 			AddressNotFoundException.class
 		})
-		@ResponseStatus()
+		@ResponseStatus(HttpStatus.BAD_REQUEST)
 		public <T extends RuntimeException> ExceptionMsg handleApiRequestException(final T e) {
 			
 			log.info("**ApiExceptionHandler controller, handle API request*\n");

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +45,15 @@ public class AddressController {
 		log.info("*** addressDto, Controller ; fetch address by id *");
 		return new ResponseEntity<>(this.addressService.findById(Integer.parseInt(addressId)), HttpStatus.OK);
 		
+	}
+	
+	@PostMapping
+	public ResponseEntity<AddressDto> save(
+			@RequestBody 
+			@NotNull(message = "Input must not NULL") 
+			@Valid final AddressDto addressDto) {
+		log.info("*** AddressDto, resource; save address *");
+		return ResponseEntity.ok(this.addressService.save(addressDto));
 	}
 	
 }

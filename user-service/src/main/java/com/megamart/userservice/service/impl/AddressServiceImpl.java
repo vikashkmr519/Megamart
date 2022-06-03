@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,53 +19,51 @@ import com.megamart.userservice.repo.AddressRepository;
 import com.megamart.userservice.service.AddressService;
 
 @Service
-public class AddressServiceImpl implements AddressService{
+@Transactional
+public class AddressServiceImpl implements AddressService {
 
 	private static final Logger log = LoggerFactory.getLogger(AddressServiceImpl.class);
-	
+
 	@Autowired
-	private AddressRepository addressRepo; 
-	
+	private AddressRepository addressRepo;
+
 	@Override
 	public List<AddressDto> findAll() {
 		log.info("*** AddressDto list, Service ; fetch all address *");
-		return addressRepo.findAll().stream()
-		.map(AddressMappingHelper::map)
-		.distinct()
-		.collect(Collectors.toUnmodifiableList());
-		
+		return addressRepo.findAll().stream().map(AddressMappingHelper::map).distinct()
+				.collect(Collectors.toUnmodifiableList());
+
 	}
 
 	@Override
 	public AddressDto findById(Integer addressId) {
 		log.info("*** AddressDto, Service ; fetch address by id *");
-		return addressRepo.findById(addressId)
-				.map(AddressMappingHelper::map)
-				.orElseThrow(()-> new  AddressNotFoundException(String.format("### Address with id : %d not found! ###",addressId)));
+		return addressRepo.findById(addressId).map(AddressMappingHelper::map)
+				.orElseThrow(() -> new AddressNotFoundException(
+						String.format("### Address with id : %d not found! ###", addressId)));
 	}
 
 	@Override
 	public AddressDto save(AddressDto addressDto) {
-		
-		return null;
+		log.info("*** AddressDto, Service ; Saving Address");
+		return AddressMappingHelper.map(this.addressRepo.save(AddressMappingHelper.map(addressDto)));
 	}
 
 	@Override
 	public AddressDto update(AddressDto addressDto) {
-		
+
 		return null;
 	}
 
 	@Override
 	public AddressDto update(Integer addressId, AddressDto addressDto) {
-		
+
 		return null;
 	}
 
 	@Override
 	public void deleteById(Integer addressId) {
-		
-		
+
 	}
 
 }
