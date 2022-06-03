@@ -1,7 +1,7 @@
 package com.megamart.userservice.model;
 
 import java.io.Serializable;
-
+import java.sql.Timestamp;
 import java.time.Instant;
 
 import javax.persistence.Column;
@@ -22,32 +22,34 @@ public abstract class AbstractMappedEntity implements Serializable{
 	@CreatedDate
 	@JsonFormat(shape = Shape.STRING)
 	@Column(name = "created_at")
-	private Instant createdAt;
+	private Timestamp createdAt;
 	
 	@LastModifiedDate
 	@JsonFormat(shape = Shape.STRING)
 	@Column(name = "updated_at")
-	private Instant updatedAt;
+	private Timestamp updatedAt;
 
-	public Instant getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Instant createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Instant getUpdatedAt() {
+	public Timestamp getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Instant updatedAt) {
+	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	
 	
 	
 

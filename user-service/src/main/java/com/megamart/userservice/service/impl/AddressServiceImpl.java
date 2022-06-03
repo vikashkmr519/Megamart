@@ -1,5 +1,7 @@
 package com.megamart.userservice.service.impl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,25 +47,44 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public AddressDto save(AddressDto addressDto) {
-		log.info("*** AddressDto, Service ; Saving Address");
-		return AddressMappingHelper.map(this.addressRepo.save(AddressMappingHelper.map(addressDto)));
+		log.info("*** AddressDto, Service ; Saving Address *");
+		Address address = AddressMappingHelper.map(addressDto);
+		address.setCreatedAt(this.getCurrentTimeStamp());
+		return AddressMappingHelper.map(this.addressRepo.save(address));
 	}
 
 	@Override
 	public AddressDto update(AddressDto addressDto) {
+		log.info("*** AddressDto, Service; update Address data *");
+		Optional<Address> fetchedAddress = this.addressRepo.findById(addressDto.getAddressId());
+		if (fetchedAddress.isEmpty()) {
+			throw new AddressNotFoundException(
+					String.format("### Address with id : %d not found! ###", addressDto.getAddressId()));
+		} else {
+			Address address = fetchedAddress.get();
+			address.setCity(addressDto.getCity() == null ? fetchedAddress.get().getCity() : addressDto.getCity());
+			address.setFullAddress(addressDto.getFullAddress() == null ? fetchedAddress.get().getFullAddress()
+					: addressDto.getFullAddress());
+			address.setPostalCode(addressDto.getPostalCode() == null ? fetchedAddress.get().getPostalCode()
+					: addressDto.getPostalCode());
+			address.setUpdatedAt(this.getCurrentTimeStamp());
+			return AddressMappingHelper.map(this.addressRepo.save(address));
+		}
 
-		return null;
-	}
-
-	@Override
-	public AddressDto update(Integer addressId, AddressDto addressDto) {
-
-		return null;
 	}
 
 	@Override
 	public void deleteById(Integer addressId) {
-
+		log.info("*** Void, Service; delete address by address Id *");
+		if (addressRepo.existsById(addressId)) {
+			this.addressRepo.deleteById(addressId);
+		}else {
+			throw new AddressNotFoundException(String.format("### Address with id : %d not found! ###", addressId));
+		}
 	}
 
+	private Timestamp getCurrentTimeStamp() {
+		Date date = new Date();
+		return new Timestamp(date.getTime());
+	}
 }
